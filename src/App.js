@@ -322,7 +322,14 @@ const Home = () => {
                             <StarRating rating={sightseeing.rating} />
                             <span className="reviews">({sightseeing.reviews} reviews)</span>
                           </div>
-                          <button className="view-details">View Tour Details</button>
+                          <a 
+                            href="https://www.bookmysight.com/" 
+                            className="view-details"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            View Tour Details
+                          </a>
                         </div>
                       </div>
                     </div>
@@ -345,7 +352,6 @@ const Home = () => {
       {/* Tour Packages Section */}
       <section id="packages" className="packages-section">
         <div className="container">
-          <h2>Our Exclusive Packages</h2>
           <TourPackages />
         </div>
       </section>
@@ -422,7 +428,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
-        <TourPackages />
       </main>
       <Footer />
     </Router>

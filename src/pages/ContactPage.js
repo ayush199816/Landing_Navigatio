@@ -1,44 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  FaSpinner
-} from 'react-icons/fa';
+import React, { useState, useEffect, useRef } from 'react';
+import { FaSpinner, FaExclamationTriangle } from 'react-icons/fa';
 import './ContactPage.css';
 
 const ContactPage = () => {
-  const [isIframeLoading, setIsIframeLoading] = useState(true);
-  const [isScriptLoaded, setIsScriptLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const iframeRef = useRef(null);
+  const retryTimeout = useRef(null);
+
+  const handleIframeLoad = () => {
+    setIsLoading(false);
+    setError(null);
+  };
+
+  const handleIframeError = () => {
+    setError('Failed to load the contact form. Please try again later.');
+    setIsLoading(false);
+    
+    // Auto-retry after 5 seconds
+    retryTimeout.current = setTimeout(() => {
+      setError(null);
+      setIsLoading(true);
+      if (iframeRef.current) {
+        // Force reload the iframe by cloning and replacing it
+        const iframe = iframeRef.current;
+        const src = iframe.src;
+        iframe.src = '';
+        setTimeout(() => {
+          if (iframe) iframe.src = src;
+        }, 0);
+      }
+    }, 5000);
+  };
 
   useEffect(() => {
-    // Load Brevo form script
-    const script = document.createElement('script');
-    script.src = 'https://sibforms.com/forms/end-form/build/sib-forms.sandbox.js';
-    script.async = true;
-    
-    script.onload = () => {
-      setIsScriptLoaded(true);
-      // Small delay to ensure the script is fully initialized
-      setTimeout(() => setIsIframeLoading(false), 1500);
-    };
-    
-    script.onerror = () => {
-      console.error('Failed to load Brevo form script');
-      // If the script fails, still stop the loading spinner
-      setIsIframeLoading(false);
-    };
-
-    document.body.appendChild(script);
-
-    // Cleanup function to remove the script when the component unmounts
     return () => {
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
+      // Clean up any pending timeouts
+      if (retryTimeout.current) {
+        clearTimeout(retryTimeout.current);
       }
     };
   }, []);
-
-  const handleIframeLoad = () => {
-    setIsIframeLoading(false);
-  };
 
   return (
     <div className="contact-page">
@@ -56,38 +58,56 @@ const ContactPage = () => {
               <h2>Send Us a Message</h2>
               <p>Have questions or special requests? We're here to help.</p>
               
-              {/* Conditionally render the form once the script is loaded */}
-              {isScriptLoaded ? (
-                <div className={`form-iframe-wrapper ${isIframeLoading ? 'loading' : ''}`}>
-                  {isIframeLoading && (
-                    <div className="form-loading">
-                      <FaSpinner className="spinner" />
-                      <p>Loading contact form...</p>
-                    </div>
-                  )}
+              <div className={`form-iframe-wrapper ${isLoading ? 'loading' : ''}`}>
+                {isLoading && (
+                  <div className="form-loading">
+                    <FaSpinner className="spinner" />
+                    <p>Loading contact form...</p>
+                  </div>
+                )}
+                {error ? (
+                  <div className="form-error">
+                    <FaExclamationTriangle className="error-icon" />
+                    <p>{error}</p>
+                    <button 
+                      className="retry-button"
+                      onClick={() => {
+                        setError(null);
+                        setIsLoading(true);
+                        if (iframeRef.current) {
+                          const iframe = iframeRef.current;
+                          const src = iframe.src;
+                          iframe.src = '';
+                          setTimeout(() => {
+                            if (iframe) iframe.src = src;
+                          }, 0);
+                        }
+                      }}
+                    >
+                      Retry
+                    </button>
+                  </div>
+                ) : (
                   <iframe 
-                    src="https://359f261a.sibforms.com/serve/MUIFACDGUJhDweO7YdGAhlWptc72iJjv1UeOScCDAtE_vSKu7VoWn8ygK-PrbeScnjz-0CveZHVlse3D3GCrtvGQ1KJrwztTzANpw13e7rW93ikoPkjIglsl8bxIVEw76gnytKgTLrhd8iDYcWV27ryJLOn71l9EE0qYDttqXEZA5hHG6lNP1LL3bWDmGQmwGwuLfJZyDcXKl3L4"
+                    ref={iframeRef}
+                    src="https://359f261a.sibforms.com/serve/MUIFAGrCm-QRAw1plFO_c8nQweEfFycxZtDsT07jPj21YcmBGQq4cEgaU9z35qfA3DG4enO3wSfzpqxvHFQbyxMp2453bUuGXqpp9WH7V_f1qOsJ-OMMVwtdOPkKHLFJwGIuDz5mTGmCyBr3Oj-BdMQdGtfD0n2BzRFimkiSraQcYXMvQZoDlEX42IcFmvg_cy9tn8THE3ZDPatH"
                     title="Contact Form"
                     onLoad={handleIframeLoad}
+                    onError={handleIframeError}
                     style={{ 
-                      opacity: isIframeLoading ? 0 : 1,
+                      opacity: isLoading ? 0 : 1,
                       transition: 'opacity 0.3s ease-in-out',
                       width: '100%',
                       minHeight: '500px',
                       border: 'none',
-                      borderRadius: '12px'
+                      borderRadius: '12px',
+                      visibility: isLoading ? 'hidden' : 'visible'
                     }}
-                    loading="lazy"
+                    loading="eager"
                     aria-label="Contact form"
                   />
-                </div>
-              ) : (
-                // Show a loading state specifically for the script
-                <div className="form-loading">
-                  <FaSpinner className="spinner" />
-                  <p>Preparing form...</p>
-                </div>
-              )}
+                )}
+              </div>
               
               <div className="form-note">
                 <p>We typically respond within 24 hours. For urgent inquiries, please call us directly.</p>

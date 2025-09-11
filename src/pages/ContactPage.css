@@ -279,17 +279,74 @@
 
 .form-iframe-wrapper {
   position: relative;
-  width: 100%;
-  max-width: 100%;
+  min-height: 500px;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: var(--shadow-md);
-  transition: var(--transition);
-  border: 1px solid rgba(226, 232, 240, 0.8);
-  margin: 1.5rem 0 0;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
 }
 
-.form-iframe-wrapper:hover {
+.form-iframe-wrapper.loading {
+  min-height: 400px;
+  background: linear-gradient(90deg, #f3f4f6 0%, #e5e7eb 50%, #f3f4f6 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.form-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  height: 100%;
+  background: #fff5f5;
+  border-radius: 12px;
+  border: 1px solid #fed7d7;
+}
+
+.form-error .error-icon {
+  color: #e53e3e;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.form-error p {
+  color: #e53e3e;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.retry-button {
+  background: #e53e3e;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.retry-button:hover {
+  background: #c53030;
+  transform: translateY(-1px);
+}
+
+.retry-button:active {
+  transform: translateY(0);
   box-shadow: var(--shadow-lg);
   transform: translateY(-2px);
 }
