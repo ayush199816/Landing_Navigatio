@@ -4,9 +4,13 @@ set -e
 # Install dependencies
 npm install --legacy-peer-deps
 
-# Grant execute permissions to react-scripts
-chmod +x ./node_modules/.bin/react-scripts
+# Fix permissions
+chmod -R 755 node_modules/
+chmod +x node_modules/.bin/*
 
-# Set CI to false and run build
+# Set environment variables
 export CI=false
+
+# Run build
+npm run build
 npm run build
