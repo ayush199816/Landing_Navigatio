@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  FaPhone, 
-  FaEnvelope, 
-  FaMapMarkerAlt, 
-  FaFacebook, 
-  FaInstagram, 
-  FaTwitter, 
-  FaLinkedin,
   FaSpinner
 } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
 import './ContactPage.css';
 
 const ContactPage = () => {
@@ -30,12 +22,13 @@ const ContactPage = () => {
     
     script.onerror = () => {
       console.error('Failed to load Brevo form script');
+      // If the script fails, still stop the loading spinner
       setIsIframeLoading(false);
     };
 
     document.body.appendChild(script);
 
-    // Cleanup
+    // Cleanup function to remove the script when the component unmounts
     return () => {
       if (document.body.contains(script)) {
         document.body.removeChild(script);
@@ -46,39 +39,6 @@ const ContactPage = () => {
   const handleIframeLoad = () => {
     setIsIframeLoading(false);
   };
-
-  const contactMethods = [
-    {
-      icon: <FaPhone />,
-      title: 'Phone',
-      content: (
-        <a href="tel:+919628912345" className="contact-link">
-          +91 96289 12345
-        </a>
-      )
-    },
-    {
-      icon: <FaEnvelope />,
-      title: 'Email',
-      content: (
-        <a href="mailto:info@navigatioasia.com" className="contact-link">
-          info@navigatioasia.com
-        </a>
-      )
-    },
-    {
-      icon: <FaMapMarkerAlt />,
-      title: 'Location',
-      content: 'Mumbai, India'
-    }
-  ];
-
-  const socialLinks = [
-    { icon: <FaFacebook />, label: 'Facebook', url: '#' },
-    { icon: <FaInstagram />, label: 'Instagram', url: '#' },
-    { icon: <FaTwitter />, label: 'Twitter', url: '#' },
-    { icon: <FaLinkedin />, label: 'LinkedIn', url: '#' }
-  ];
 
   return (
     <div className="contact-page">
@@ -96,29 +56,38 @@ const ContactPage = () => {
               <h2>Send Us a Message</h2>
               <p>Have questions or special requests? We're here to help.</p>
               
-              <div className={`form-iframe-wrapper ${isIframeLoading ? 'loading' : ''}`}>
-                {isIframeLoading && (
-                  <div className="form-loading">
-                    <FaSpinner className="spinner" />
-                    <p>Loading contact form...</p>
-                  </div>
-                )}
-                <iframe 
-                  src="https://359f261a.sibforms.com/serve/MUIFACDGUJhDweO7YdGAhlWptc72iJjv1UeOScCDAtE_vSKu7VoWn8ygK-PrbeScnjz-0CveZHVlse3D3GCrtvGQ1KJrwztTzANpw13e7rW93ikoPkjIglsl8bxIVEw76gnytKgTLrhd8iDYcWV27ryJLOn71l9EE0qYDttqXEZA5hHG6lNP1LL3bWDmGQmwGwuLfJZyDcXKl3L4"
-                  title="Contact Form"
-                  onLoad={handleIframeLoad}
-                  style={{ 
-                    opacity: isIframeLoading ? 0 : 1,
-                    transition: 'opacity 0.3s ease-in-out',
-                    width: '100%',
-                    minHeight: '500px',
-                    border: 'none',
-                    borderRadius: '12px'
-                  }}
-                  loading="lazy"
-                  aria-label="Contact form"
-                />
-              </div>
+              {/* Conditionally render the form once the script is loaded */}
+              {isScriptLoaded ? (
+                <div className={`form-iframe-wrapper ${isIframeLoading ? 'loading' : ''}`}>
+                  {isIframeLoading && (
+                    <div className="form-loading">
+                      <FaSpinner className="spinner" />
+                      <p>Loading contact form...</p>
+                    </div>
+                  )}
+                  <iframe 
+                    src="https://359f261a.sibforms.com/serve/MUIFACDGUJhDweO7YdGAhlWptc72iJjv1UeOScCDAtE_vSKu7VoWn8ygK-PrbeScnjz-0CveZHVlse3D3GCrtvGQ1KJrwztTzANpw13e7rW93ikoPkjIglsl8bxIVEw76gnytKgTLrhd8iDYcWV27ryJLOn71l9EE0qYDttqXEZA5hHG6lNP1LL3bWDmGQmwGwuLfJZyDcXKl3L4"
+                    title="Contact Form"
+                    onLoad={handleIframeLoad}
+                    style={{ 
+                      opacity: isIframeLoading ? 0 : 1,
+                      transition: 'opacity 0.3s ease-in-out',
+                      width: '100%',
+                      minHeight: '500px',
+                      border: 'none',
+                      borderRadius: '12px'
+                    }}
+                    loading="lazy"
+                    aria-label="Contact form"
+                  />
+                </div>
+              ) : (
+                // Show a loading state specifically for the script
+                <div className="form-loading">
+                  <FaSpinner className="spinner" />
+                  <p>Preparing form...</p>
+                </div>
+              )}
               
               <div className="form-note">
                 <p>We typically respond within 24 hours. For urgent inquiries, please call us directly.</p>

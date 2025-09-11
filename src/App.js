@@ -4,7 +4,9 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react
 import { FiSearch, FiMapPin, FiStar } from 'react-icons/fi';
 import { FaUmbrellaBeach, FaShip, FaCity, FaMountain, FaChevronLeft, FaChevronRight, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 import ContactPage from './pages/ContactPage';
+import TourPackages from './components/TourPackages';
 import './App.css';
+import './components/TourPackages.css';
 
 // Helper component for rendering stars
 const StarRating = ({ rating }) => (
@@ -152,10 +154,8 @@ const Footer = () => (
       <div className="footer-bottom">
         <p>&copy; {new Date().getFullYear()} Navigatio Asia DMC. All rights reserved.</p>
         <div className="social-links">
-          <a href="#" aria-label="Facebook"><i className="fab fa-facebook"></i></a>
-          <a href="#" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
-          <a href="#" aria-label="Twitter"><i className="fab fa-twitter"></i></a>
-          <a href="#" aria-label="LinkedIn"><i className="fab fa-linkedin"></i></a>
+          <a href="https://www.instagram.com/navigatio.asia" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
+          <a href="https://in.linkedin.com/company/navigatioasiadmc" aria-label="LinkedIn"><i className="fab fa-linkedin"></i></a>
         </div>
       </div>
     </div>
@@ -342,6 +342,14 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Tour Packages Section */}
+      <section id="packages" className="packages-section">
+        <div className="container">
+          <h2>Our Exclusive Packages</h2>
+          <TourPackages />
+        </div>
+      </section>
+
       <section className="team-section" id="team">
         <div className="container">
           <h2>Our Team</h2>
@@ -414,6 +422,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
+        <TourPackages />
       </main>
       <Footer />
     </Router>
