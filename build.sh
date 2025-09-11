@@ -5,4 +5,5 @@ set -e
 npm install --legacy-peer-deps
 
 # Set CI to false and run build
-CI=false npm run build
+export CI=false
+npm run build
