@@ -393,6 +393,7 @@ main {
   line-height: 1.6;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -654,6 +655,7 @@ main {
   line-height: 1.6;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -1198,22 +1200,51 @@ main {
   .footer {
     padding: 2rem 0 0;
     overflow-x: hidden;
+    text-align: center;
   }
   
   .footer .container {
     padding: 0 1rem;
     max-width: 100%;
+    overflow: hidden;
   }
   
   .footer-content {
     padding: 0 1rem;
+    text-align: center;
+    width: 100%;
   }
-}
-
-@media (max-width: 576px) {
+  
+  .footer-column {
+    text-align: center;
+    margin: 0 auto 2rem;
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+  
+  .footer-column h4 {
+    text-align: center;
+    margin: 0 auto 1.5rem;
+    display: inline-block;
+  }
+  
+  .footer-column h4::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
   .footer-links {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .footer-links a {
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    padding: 0.5rem 0;
   }
   
   .footer-bottom {
@@ -1223,17 +1254,57 @@ main {
   }
   
   .social-links {
-    margin-top: 1rem;
     justify-content: center;
+    margin-top: 1rem;
+  }
+  
+  .contact-info li {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer-links {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+    width: 100%;
+  }
+  
+  .social-links {
+    margin: 1rem auto 0;
+    justify-content: center;
+    max-width: 100%;
+    flex-wrap: wrap;
   }
   
   .footer-column {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    padding: 0 0.5rem;
   }
   
   .footer-section h4::after {
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
     width: 50px;
+  }
+  
+  .footer-logo {
+    text-align: center;
+    padding: 0 1rem;
+  }
+  
+  .footer-logo p {
+    text-align: center;
+    margin: 1rem auto 0;
+    max-width: 100%;
   }
 }
 

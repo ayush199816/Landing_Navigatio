@@ -30,7 +30,8 @@ const popularSightseeings = [
     reviews: 1245,
     icon: <FaUmbrellaBeach />,
     image: '/images/phiphi.png',
-    description: 'Experience the stunning beauty of Phi Phi Islands with crystal clear waters and white sandy beaches.'
+    description: 'Experience the stunning beauty of Phi Phi Islands with crystal clear waters and white sandy beaches.',
+    bookNowUrl: 'https://www.bookmysight.com/sightseeing/68d29024d47029a42963ba6d'
   },
   {
     id: 2,
@@ -40,7 +41,8 @@ const popularSightseeings = [
     reviews: 987,
     icon: <FaShip />,
     image: '/images/4island.png',
-    description: 'Discover four beautiful islands in one day, perfect for snorkeling and beach lovers.'
+    description: 'Discover four beautiful islands in one day, perfect for snorkeling and beach lovers.',
+    bookNowUrl: 'https://www.bookmysight.com/sightseeing/68c419cd64a77287f5d1e643'
   },
   {
     id: 3,
@@ -50,7 +52,8 @@ const popularSightseeings = [
     reviews: 876,
     icon: <FaCity />,
     image: '/images/phuketcity.png',
-    description: 'Explore the rich culture and history of Phuket city with our guided tour.'
+    description: 'Explore the rich culture and history of Phuket city with our guided tour.',
+    bookNowUrl: 'https://www.bookmysight.com/sightseeing/68d2d990782342826ba41953'
   },
   {
     id: 4,
@@ -60,7 +63,8 @@ const popularSightseeings = [
     reviews: 1567,
     icon: <FaShip />,
     image: '/images/BangkokDinnerCruise.png',
-    description: 'Enjoy a romantic dinner cruise along the Chao Phraya River with stunning city views.'
+    description: 'Enjoy a romantic dinner cruise along the Chao Phraya River with stunning city views.',
+    bookNowUrl: 'https://www.bookmysight.com/sightseeing/68c683f391803c4b2b9cb5a9'
   },
   {
     id: 5,
@@ -70,7 +74,8 @@ const popularSightseeings = [
     reviews: 1342,
     icon: <FaUmbrellaBeach />,
     image: '/images/7ilsand.png',
-    description: 'Explore seven stunning islands in Phang Nga Bay, famous for their limestone cliffs and emerald-green waters.'
+    description: 'Explore seven stunning islands in Phang Nga Bay, famous for their limestone cliffs and emerald-green waters.',
+    bookNowUrl: 'https://www.bookmysight.com/7-island-tour-phang-nga'
   },
   {
     id: 6,
@@ -80,7 +85,8 @@ const popularSightseeings = [
     reviews: 2103,
     icon: <FaMountain />,
     image: '/images/Manokahan.png',
-    description: 'Visit the famous Manokahan Tower for breathtaking panoramic views of Chiang Mai and its surrounding mountains.'
+    description: 'Visit the famous Manokahan Tower for breathtaking panoramic views of Chiang Mai and its surrounding mountains.',
+    bookNowUrl: 'https://www.bookmysight.com/sightseeing/68a2fddd50c231f3480e2e25'
   }
 ];
 
@@ -285,8 +291,11 @@ const Home = () => {
             <div className="sightseeings-grid" ref={gridRef}>
               <AnimatePresence>
                 {filteredSightseeings.map((sightseeing) => (
-                  <motion.div 
+                  <motion.a 
                     key={sightseeing.id}
+                    href={sightseeing.bookNowUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flip-card"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -333,7 +342,7 @@ const Home = () => {
                         </div>
                       </div>
                     </div>
-                  </motion.div>
+                  </motion.a>
                 ))}
               </AnimatePresence>
             </div>
