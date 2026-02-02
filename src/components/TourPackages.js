@@ -46,7 +46,9 @@ const TourPackages = () => {
 
   const handleWhatsAppClick = (phone, packageName) => {
     const message = `Hi I am looking for ${encodeURIComponent(packageName)}`;
-    window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+    const digits = String(phone).replace(/\D/g, '');
+    const normalized = digits.length === 10 ? `91${digits}` : digits;
+    window.open(`https://wa.me/${normalized}?text=${message}`, '_blank');
   };
 
   return (
@@ -66,7 +68,10 @@ const TourPackages = () => {
                 </ul>
                 <button 
                   className="whatsapp-btn"
-                  onClick={() => handleWhatsAppClick(pkg.whatsapp, pkg.title)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleWhatsAppClick(pkg.whatsapp, pkg.title);
+                  }}
                 >
                   <FaWhatsapp /> Get Price on WhatsApp
                 </button>
@@ -77,8 +82,11 @@ const TourPackages = () => {
       </div>
 
       {selectedPackage && (
-        <div className="package-modal">
-          <div className="modal-content">
+        <div
+          className={`package-modal ${selectedPackage ? 'active' : ''}`}
+          onClick={() => setSelectedPackage(null)}
+        >
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <button className="close-btn" onClick={() => setSelectedPackage(null)}>
               <FiX />
             </button>

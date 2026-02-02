@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { FiSearch, FiMapPin, FiStar } from 'react-icons/fi';
-import { FaUmbrellaBeach, FaShip, FaCity, FaMountain, FaChevronLeft, FaChevronRight, FaEnvelope, FaPhone, FaMapMarkerAlt, FaQuoteLeft } from 'react-icons/fa';
+import { FiSearch, FiMapPin, FiStar, FiClock, FiMessageCircle, FiCheckCircle, FiShield, FiCreditCard, FiRefreshCw, FiCalendar, FiChevronDown } from 'react-icons/fi';
+import { FaUmbrellaBeach, FaShip, FaCity, FaMountain, FaChevronLeft, FaChevronRight, FaEnvelope, FaPhone, FaMapMarkerAlt, FaQuoteLeft, FaWhatsapp } from 'react-icons/fa';
 import ContactPage from './pages/ContactPage';
 import TourPackages from './components/TourPackages';
 import './App.css';
@@ -20,6 +20,14 @@ const StarRating = ({ rating }) => (
     <span>{rating}</span>
   </div>
 );
+
+const WHATSAPP_NUMBER = '919628912345';
+
+const buildWhatsAppLink = (phone, message) => {
+  const digits = String(phone).replace(/\D/g, '');
+  const normalized = digits.length === 10 ? `91${digits}` : digits;
+  return `https://wa.me/${normalized}?text=${encodeURIComponent(message)}`;
+};
 
 const popularSightseeings = [
   {
@@ -87,6 +95,17 @@ const popularSightseeings = [
     image: '/images/Manokahan.png',
     description: 'Visit the famous Manokahan Tower for breathtaking panoramic views of Chiang Mai and its surrounding mountains.',
     bookNowUrl: 'https://www.bookmysight.com/sightseeing/68a2fddd50c231f3480e2e25'
+  },
+  {
+    id: 7,
+    name: 'Explore All Tours',
+    location: 'Thailand',
+    rating: 4.9,
+    reviews: 3200,
+    icon: <FaUmbrellaBeach />,
+    image: '/images/phiphi.png',
+    description: 'Browse our full collection of tours and experiences and pick the perfect fit for your trip.',
+    bookNowUrl: 'https://www.bookmysight.com/tours'
   }
 ];
 
@@ -274,7 +293,7 @@ const travelerReviews = [
 ];
 
 // Reusable Navbar component
-const Navbar = ({ logo, links }) => {
+const Navbar = ({ logo, links, whatsappNumber }) => {
   const location = useLocation();
   
   const handleScrollToSection = (id) => (e) => {
@@ -289,8 +308,8 @@ const Navbar = ({ logo, links }) => {
       <div className="logo">{logo}</div>
       <div className="nav-links">
         {links.map((link, index) => (
-          <Link 
-            key={index} 
+          <Link
+            key={index}
             to={link.to}
             onClick={link.to.startsWith('/#') ? handleScrollToSection(link.to.substring(2)) : undefined}
           >
@@ -298,9 +317,33 @@ const Navbar = ({ logo, links }) => {
           </Link>
         ))}
       </div>
+      <div className="nav-cta">
+        <a
+          className="btn btn-whatsapp"
+          href={buildWhatsAppLink(whatsappNumber, 'Hi! I want to plan my trip with Navigatio Asia DMC.')}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FaWhatsapp />
+          WhatsApp
+        </a>
+      </div>
     </nav>
   );
 };
+
+const WhatsAppFab = ({ whatsappNumber }) => (
+  <a
+    className="whatsapp-fab"
+    href={buildWhatsAppLink(whatsappNumber, 'Hi! I want to plan my trip with Navigatio Asia DMC.')}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Chat on WhatsApp"
+  >
+    <FaWhatsapp />
+    <span>WhatsApp</span>
+  </a>
+);
 
 // Reusable Footer component
 const Footer = () => (
@@ -357,6 +400,7 @@ const Home = () => {
   const [filteredSightseeings, setFilteredSightseeings] = useState(popularSightseeings);
   const [activeFilter, setActiveFilter] = useState('all');
   const [activeReview, setActiveReview] = useState(0);
+  const [openFaq, setOpenFaq] = useState(null);
   const gridRef = useRef(null);
   
   const scrollLeft = () => {
@@ -401,6 +445,52 @@ const Home = () => {
     }
   };
 
+  const trustStats = [
+    { title: '100%', subtitle: 'Customisation' },
+    { title: '24×7', subtitle: 'Concierge' },
+    { title: '95%', subtitle: 'Visa success' },
+    { title: '150k+', subtitle: 'Travellers' },
+  ];
+
+  const confidenceItems = [
+    { icon: <FiShield />, title: 'Secure your spot', subtitle: 'Pay 20% to confirm your trip' },
+    { icon: <FiCreditCard />, title: 'Easy EMI options', subtitle: 'Zero-cost EMI on select trips' },
+    { icon: <FiRefreshCw />, title: 'Free cancellation', subtitle: 'On group trips' },
+    { icon: <FiCalendar />, title: 'Reschedule anytime', subtitle: 'At no extra charges' },
+    { icon: <FiMessageCircle />, title: '24×7 Support', subtitle: 'Trained trip captains' },
+  ];
+
+  const bestieReasons = [
+    { title: 'Solo is safe', subtitle: 'Verified stays, reliable transport, and trained guides — stress-free from day 1.' },
+    { title: "We’re the green Forest", subtitle: 'Transparent pricing, curated partners, and on-trip support you can count on.' },
+    { title: 'Onground team is gire', subtitle: 'Part-guide, part-friend — full vibe curator for your trip.' },
+    { title: 'No hidden fees', subtitle: 'No middlemen. No surprises. Just a clean itinerary and clear inclusions.' },
+    { title: 'Vibe check comes first', subtitle: 'We tailor trips to your age group, pace, and interests — not a generic plan.' },
+  ];
+
+  const faqs = [
+    {
+      q: 'What is Navigatio Asia DMC?',
+      a: 'We help you plan and book memorable trips with curated tours, stays, and transfers — with WhatsApp-first support.'
+    },
+    {
+      q: 'Can I customise my itinerary?',
+      a: 'Yes. Share your dates, budget, and preferences on WhatsApp and we’ll build a personalised plan for you.'
+    },
+    {
+      q: 'How do I book tours?',
+      a: 'You can browse and book instantly via BookMySight, or message us on WhatsApp for a custom recommendation.'
+    },
+    {
+      q: 'Is it safe to travel with you?',
+      a: 'We work with verified local operators and we stay available throughout the trip for support and coordination.'
+    },
+    {
+      q: 'What payment options do you support?',
+      a: 'We can guide you on available payment options depending on the package and operator. Message us on WhatsApp for details.'
+    },
+  ];
+
   return (
     <>
       <section className="hero-video" id="home">
@@ -414,6 +504,150 @@ const Home = () => {
       
       <div className="spacer"></div>
 
+      <section className="quick-cta" id="start">
+        <div className="container">
+          <div className="quick-cta-card">
+            <div className="quick-cta-copy">
+              <p className="quick-cta-eyebrow">Beach. Water. Air. Travel. Sleep.</p>
+              <h2 className="quick-cta-title">Plan a trip that feels effortless</h2>
+              <p className="quick-cta-subtitle">
+                Tell us your dates and budget on WhatsApp. We’ll recommend the best tours, transfers, and stays.
+              </p>
+              <div className="quick-cta-actions">
+                <a
+                  className="btn btn-whatsapp btn-lg"
+                  href={buildWhatsAppLink(WHATSAPP_NUMBER, 'Hi! I want to plan a trip. My dates are ____ and budget is ____.')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaWhatsapp />
+                  Get a plan on WhatsApp
+                </a>
+                <a
+                  className="btn btn-secondary btn-lg"
+                  href="https://www.bookmysight.com/tours"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Explore BookMySight Tours
+                </a>
+              </div>
+              <div className="quick-cta-badges">
+                <span className="badge">Handpicked itineraries</span>
+                <span className="badge">Fast quotes</span>
+                <span className="badge">On-trip support</span>
+              </div>
+            </div>
+            <div className="quick-cta-metrics" aria-hidden="true">
+              <div className="metric">
+                <FiClock />
+                <div>
+                  <div className="metric-title">Quick turnarounds</div>
+                  <div className="metric-subtitle">Get options in hours</div>
+                </div>
+              </div>
+              <div className="metric">
+                <FiMessageCircle />
+                <div>
+                  <div className="metric-title">WhatsApp-first</div>
+                  <div className="metric-subtitle">Easy planning</div>
+                </div>
+              </div>
+              <div className="metric">
+                <FiCheckCircle />
+                <div>
+                  <div className="metric-title">Trusted tours</div>
+                  <div className="metric-subtitle">BookMySight powered</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="trust-section" id="trust">
+        <div className="container">
+          <div className="trust-card">
+            <h2 className="trust-title">Why choose Navigatio Asia?</h2>
+            <div className="trust-grid">
+              {trustStats.map((item) => (
+                <div key={item.subtitle} className="trust-item">
+                  <div className="trust-value">{item.title}</div>
+                  <div className="trust-label">{item.subtitle}</div>
+                </div>
+              ))}
+            </div>
+            <div className="trust-award">
+              <span className="trust-award-chip">AWARDED</span>
+              <span className="trust-award-text">Trusted by travellers across India</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="confidence-section" id="confidence">
+        <div className="container">
+          <div className="section-head">
+            <h2>Book with Confidence</h2>
+            <p>Flexible payments, safe bookings, and reliable support — so you can focus on the trip.</p>
+          </div>
+          <div className="confidence-grid">
+            {confidenceItems.map((item) => (
+              <div key={item.title} className="confidence-item">
+                <div className="confidence-icon" aria-hidden="true">{item.icon}</div>
+                <div className="confidence-copy">
+                  <div className="confidence-title">{item.title}</div>
+                  <div className="confidence-subtitle">{item.subtitle}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bestie-section" id="bestie">
+        <div className="container">
+          <div className="section-head">
+            <h2>Reasons to make us your travel bestie</h2>
+            <p>From solo trips to group getaways — we keep the plan simple and the vibe on point.</p>
+          </div>
+          <div className="bestie-grid">
+            {bestieReasons.map((item) => (
+              <div key={item.title} className="bestie-card">
+                <h3>{item.title}</h3>
+                <p>{item.subtitle}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="how-section" id="how">
+        <div className="container">
+          <div className="section-head">
+            <h2>How it works</h2>
+            <p>Simple, fast and fully assisted — from first message to the last pickup.</p>
+          </div>
+          <div className="how-grid">
+            <div className="how-card">
+              <div className="how-icon"><FiMessageCircle /></div>
+              <h3>Share your plan</h3>
+              <p>Send dates, budget and your vibe on WhatsApp.</p>
+            </div>
+            <div className="how-card">
+              <div className="how-icon"><FiCheckCircle /></div>
+              <h3>We curate</h3>
+              <p>We shortlist tours, hotels and transfers that match.</p>
+            </div>
+            <div className="how-card">
+              <div className="how-icon"><FiClock /></div>
+              <h3>Book & relax</h3>
+              <p>Confirm quickly, and get support during your trip.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="search-section" id="destinations">
         <div className="search-container">
           <motion.div 
@@ -424,7 +658,7 @@ const Home = () => {
             viewport={{ once: true }}
           >
             <h2>Popular Sightseeings</h2>
-            <p>Explore our most popular tours and activities</p>
+            <p>Handpicked experiences — book instantly or ask for a custom plan.</p>
           </motion.div>
           
           <motion.div 
@@ -442,7 +676,14 @@ const Home = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-            <button className="search-button">Search</button>
+            <a
+              className="search-button"
+              href="https://www.bookmysight.com/tours"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View All Tours
+            </a>
           </motion.div>
 
           <div className="filters">
@@ -525,7 +766,7 @@ const Home = () => {
                             <span className="reviews">({sightseeing.reviews} reviews)</span>
                           </div>
                           <a 
-                            href="https://www.bookmysight.com/" 
+                            href={sightseeing.bookNowUrl} 
                             className="view-details"
                             target="_blank"
                             rel="noopener noreferrer"
@@ -549,14 +790,16 @@ const Home = () => {
             </button>
           </div>
         </div>
-      </section>
-
-      {/* Tour Packages Section */}
-      <section id="packages" className="packages-section">
-        <div className="container">
-          <TourPackages />
+        <div className="sun-decor" aria-hidden="true"></div>
+        <div className="coconut-tree" aria-hidden="true"></div>
+        <div className="beach-waves" aria-hidden="true">
+          <div className="wave wave-1"></div>
+          <div className="wave wave-2"></div>
+          <div className="wave wave-3"></div>
         </div>
       </section>
+
+      <TourPackages />
 
       <section className="reviews-section" id="reviews">
         <div className="container">
@@ -618,6 +861,11 @@ const Home = () => {
               <p className="position">COO</p>
             </div>
             <div className="team-member">
+              <div className="member-avatar">TR</div>
+              <h3>Tarun</h3>
+              <p className="position">Contracting and Sales Head</p>
+            </div>
+            <div className="team-member">
               <div className="member-avatar">P</div>
               <h3>Parul</h3>
               <p className="position">Senior Sales Associate</p>
@@ -628,8 +876,8 @@ const Home = () => {
               <p className="position">Sales Associate</p>
             </div>
             <div className="team-member">
-              <div className="member-avatar">T</div>
-              <h3>Tapur</h3>
+              <div className="member-avatar">AN</div>
+              <h3>Anshra</h3>
               <p className="position">Sales Associate</p>
             </div>
             <div className="team-member">
@@ -646,12 +894,61 @@ const Home = () => {
         </div>
       </section>
 
+      <section className="faq-section" id="faq">
+        <div className="container">
+          <div className="section-head">
+            <h2>Frequently Asked Questions</h2>
+            <p>Quick answers before you start planning.</p>
+          </div>
+          <div className="faq-list">
+            {faqs.map((item, index) => {
+              const isOpen = openFaq === index;
+              return (
+                <div key={item.q} className={`faq-item ${isOpen ? 'open' : ''}`}>
+                  <button
+                    className="faq-question"
+                    type="button"
+                    onClick={() => setOpenFaq(isOpen ? null : index)}
+                    aria-expanded={isOpen}
+                  >
+                    <span>{item.q}</span>
+                    <FiChevronDown aria-hidden="true" />
+                  </button>
+                  <div className="faq-answer" hidden={!isOpen}>
+                    <p>{item.a}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       <section id="contact" className="contact-section">
         <div className="container">
           <h2>Contact Us</h2>
           <div className="contact-cta">
             <p>Have questions or ready to book your next adventure?</p>
-            <Link to="/contact" className="cta-button">Get In Touch</Link>
+            <div className="contact-actions">
+              <a
+                className="btn btn-whatsapp"
+                href={buildWhatsAppLink(WHATSAPP_NUMBER, 'Hi! I want to plan my trip with Navigatio Asia DMC.')}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaWhatsapp />
+                Chat on WhatsApp
+              </a>
+              <a
+                className="btn btn-secondary"
+                href="https://www.bookmysight.com/tours"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Browse Tours
+              </a>
+              <Link to="/contact" className="btn btn-primary">Contact Form</Link>
+            </div>
           </div>
         </div>
       </section>
@@ -662,21 +959,26 @@ const Home = () => {
 function App() {
   const navLinks = [
     { label: 'Home', to: '/#home' },
-    { label: 'Destinations', to: '/#destinations' },
+    { label: 'Start', to: '/#start' },
+    { label: 'Why Us', to: '/#trust' },
+    { label: 'Sightseeings', to: '/#destinations' },
+    { label: 'Packages', to: '/#packages' },
     { label: 'Reviews', to: '/#reviews' },
     { label: 'Our Team', to: '/#team' },
-    { label: 'Contact', to: '/contact' },
+    { label: 'FAQ', to: '/#faq' },
+    { label: 'Contact', to: '/#contact' },
   ];
 
   return (
     <Router>
-      <Navbar logo="Navigatio Asia DMC" links={navLinks} />
+      <Navbar logo="Navigatio Asia DMC" links={navLinks} whatsappNumber={WHATSAPP_NUMBER} />
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
       </main>
+      <WhatsAppFab whatsappNumber={WHATSAPP_NUMBER} />
       <Footer />
     </Router>
   );
