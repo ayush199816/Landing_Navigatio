@@ -34,6 +34,21 @@
 
       gtag('config', 'AW-17855198305');
     </script>
+    <!-- Event snippet for Contact conversion page -->
+    <script>
+      function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof(url) != 'undefined') {
+            window.open(url, '_blank');
+          }
+        };
+        gtag('event', 'conversion', {
+            'send_to': 'AW-17855198305/WYiSCN6EmPgbEOHogsJC',
+            'event_callback': callback
+        });
+        return false;
+      }
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

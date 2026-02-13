@@ -318,11 +318,9 @@ const Navbar = ({ logo, links, whatsappNumber }) => {
         ))}
       </div>
       <div className="nav-cta">
-        <a
+        <button
+          type="button"
           className="btn btn-whatsapp"
-          href={buildWhatsAppLink(whatsappNumber, 'Hi! I want to plan my trip with Navigatio Asia DMC.')}
-          target="_blank"
-          rel="noopener noreferrer"
           onClick={() => {
             if (window.gtag) {
               window.gtag('event', 'whatsapp_click', {
@@ -330,23 +328,22 @@ const Navbar = ({ logo, links, whatsappNumber }) => {
                 event_label: 'navbar_button'
               });
             }
+            // eslint-disable-next-line no-undef
+            gtag_report_conversion(buildWhatsAppLink(whatsappNumber, 'Hi! I want to plan my trip with Navigatio Asia DMC.'));
           }}
         >
           <FaWhatsapp />
           WhatsApp
-        </a>
+        </button>
       </div>
     </nav>
   );
 };
 
 const WhatsAppFab = ({ whatsappNumber }) => (
-  <a
+  <button
+    type="button"
     className="whatsapp-fab"
-    href={buildWhatsAppLink(whatsappNumber, 'Hi! I want to plan my trip with Navigatio Asia DMC.')}
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Chat on WhatsApp"
     onClick={() => {
       if (window.gtag) {
         window.gtag('event', 'whatsapp_click', {
@@ -354,11 +351,14 @@ const WhatsAppFab = ({ whatsappNumber }) => (
           event_label: 'fab_button'
         });
       }
+      // eslint-disable-next-line no-undef
+      gtag_report_conversion(buildWhatsAppLink(whatsappNumber, 'Hi! I want to plan my trip with Navigatio Asia DMC.'));
     }}
+    aria-label="Chat on WhatsApp"
   >
     <FaWhatsapp />
     <span>WhatsApp</span>
-  </a>
+  </button>
 );
 
 // Reusable Footer component
@@ -530,11 +530,9 @@ const Home = () => {
                 Tell us your dates and budget on WhatsApp. We’ll recommend the best tours, transfers, and stays.
               </p>
               <div className="quick-cta-actions">
-                <a
+                <button
+                  type="button"
                   className="btn btn-whatsapp btn-lg"
-                  href={buildWhatsAppLink(WHATSAPP_NUMBER, 'Hi! I want to plan a trip. My dates are ____ and budget is ____.')}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   onClick={() => {
                     if (window.gtag) {
                       window.gtag('event', 'whatsapp_click', {
@@ -542,11 +540,13 @@ const Home = () => {
                         event_label: 'quick_cta_button'
                       });
                     }
+                    // eslint-disable-next-line no-undef
+                    gtag_report_conversion(buildWhatsAppLink(WHATSAPP_NUMBER, 'Hi! I want to plan a trip. My dates are ____ and budget is ____.'));
                   }}
                 >
                   <FaWhatsapp />
                   Get a plan on WhatsApp
-                </a>
+                </button>
                 <a
                   className="btn btn-secondary btn-lg"
                   href="https://www.bookmysight.com/tours"
@@ -954,11 +954,9 @@ const Home = () => {
           <div className="contact-cta">
             <p>Have questions or ready to book your next adventure?</p>
             <div className="contact-actions">
-              <a
+              <button
+                type="button"
                 className="btn btn-whatsapp"
-                href={buildWhatsAppLink(WHATSAPP_NUMBER, 'Hi! I want to plan my trip with Navigatio Asia DMC.')}
-                target="_blank"
-                rel="noopener noreferrer"
                 onClick={() => {
                   if (window.gtag) {
                     window.gtag('event', 'whatsapp_click', {
@@ -966,11 +964,13 @@ const Home = () => {
                       event_label: 'contact_cta_button'
                     });
                   }
+                  // eslint-disable-next-line no-undef
+                  gtag_report_conversion(buildWhatsAppLink(WHATSAPP_NUMBER, 'Hi! I want to plan my trip with Navigatio Asia DMC.'));
                 }}
               >
                 <FaWhatsapp />
                 Chat on WhatsApp
-              </a>
+              </button>
               <a
                 className="btn btn-secondary"
                 href="https://www.bookmysight.com/tours"

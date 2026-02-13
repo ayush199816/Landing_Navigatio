@@ -56,7 +56,9 @@ const TourPackages = () => {
     const message = `Hi I am looking for ${encodeURIComponent(packageName)}`;
     const digits = String(phone).replace(/\D/g, '');
     const normalized = digits.length === 10 ? `91${digits}` : digits;
-    window.open(`https://wa.me/${normalized}?text=${message}`, '_blank');
+    const url = `https://wa.me/${normalized}?text=${message}`;
+    // eslint-disable-next-line no-undef
+    gtag_report_conversion(url);
   };
 
   return (
