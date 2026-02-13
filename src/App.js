@@ -323,6 +323,14 @@ const Navbar = ({ logo, links, whatsappNumber }) => {
           href={buildWhatsAppLink(whatsappNumber, 'Hi! I want to plan my trip with Navigatio Asia DMC.')}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => {
+            if (window.gtag) {
+              window.gtag('event', 'whatsapp_click', {
+                event_category: 'engagement',
+                event_label: 'navbar_button'
+              });
+            }
+          }}
         >
           <FaWhatsapp />
           WhatsApp
@@ -339,6 +347,14 @@ const WhatsAppFab = ({ whatsappNumber }) => (
     target="_blank"
     rel="noopener noreferrer"
     aria-label="Chat on WhatsApp"
+    onClick={() => {
+      if (window.gtag) {
+        window.gtag('event', 'whatsapp_click', {
+          event_category: 'engagement',
+          event_label: 'fab_button'
+        });
+      }
+    }}
   >
     <FaWhatsapp />
     <span>WhatsApp</span>
@@ -519,6 +535,14 @@ const Home = () => {
                   href={buildWhatsAppLink(WHATSAPP_NUMBER, 'Hi! I want to plan a trip. My dates are ____ and budget is ____.')}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => {
+                    if (window.gtag) {
+                      window.gtag('event', 'whatsapp_click', {
+                        event_category: 'engagement',
+                        event_label: 'quick_cta_button'
+                      });
+                    }
+                  }}
                 >
                   <FaWhatsapp />
                   Get a plan on WhatsApp
@@ -935,6 +959,14 @@ const Home = () => {
                 href={buildWhatsAppLink(WHATSAPP_NUMBER, 'Hi! I want to plan my trip with Navigatio Asia DMC.')}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => {
+                  if (window.gtag) {
+                    window.gtag('event', 'whatsapp_click', {
+                      event_category: 'engagement',
+                      event_label: 'contact_cta_button'
+                    });
+                  }
+                }}
               >
                 <FaWhatsapp />
                 Chat on WhatsApp

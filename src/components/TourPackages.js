@@ -45,6 +45,14 @@ const TourPackages = () => {
   const [selectedPackage, setSelectedPackage] = useState(null);
 
   const handleWhatsAppClick = (phone, packageName) => {
+    // Track the click event
+    if (window.gtag) {
+      window.gtag('event', 'whatsapp_click', {
+        event_category: 'engagement',
+        event_label: 'package_' + packageName.replace(/\s+/g, '_').toLowerCase()
+      });
+    }
+    
     const message = `Hi I am looking for ${encodeURIComponent(packageName)}`;
     const digits = String(phone).replace(/\D/g, '');
     const normalized = digits.length === 10 ? `91${digits}` : digits;
