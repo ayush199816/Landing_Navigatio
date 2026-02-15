@@ -340,6 +340,14 @@ const Navbar = ({ logo, links, whatsappNumber }) => {
   );
 };
 
+const ScrollingBanner = () => (
+  <div className="scrolling-banner">
+    <div className="scrolling-text">
+      Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbspCall or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;
+    </div>
+  </div>
+);
+
 const WhatsAppFab = ({ whatsappNumber }) => (
   <button
     type="button"
@@ -518,7 +526,15 @@ const Home = () => {
         </div>
       </section>
       
+
       <div className="spacer"></div>
+      <section className="contact-number-section">
+        <div className="container">
+          <div className="contact-number-display">
+            <strong>Call or WhatsApp to book now @ 9628912345 / 9219755463</strong>
+          </div>
+        </div>
+      </section>
 
       <section className="quick-cta" id="start">
         <div className="container">
@@ -1004,7 +1020,8 @@ function App() {
   return (
     <Router>
       <Navbar logo="Navigatio Asia DMC" links={navLinks} whatsappNumber={WHATSAPP_NUMBER} />
-      <main>
+      <ScrollingBanner />
+      <main className="main-content">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<ContactPage />} />

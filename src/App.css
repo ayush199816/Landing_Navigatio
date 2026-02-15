@@ -2589,3 +2589,67 @@ main {
     justify-content: center;
   }
 }
+
+/* Contact Number Section */
+.contact-number-section {
+  padding: 2rem 0;
+  background-color: var(--primary-color);
+  color: white;
+  text-align: center;
+}
+
+.contact-number-display strong {
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 0.1rem;
+}
+
+/* Scrolling Banner */
+.scrolling-banner {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.5rem 0;
+  overflow: hidden;
+  white-space: nowrap;
+  position: fixed;
+  top: 70px;
+  width: 100%;
+  z-index: 999;
+}
+
+.scrolling-text {
+  display: inline-block;
+  font-size: 1.2rem;
+  font-weight: bold;
+  animation: scroll-left 180s linear infinite;
+  padding-left: 100%;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Main Content */
+.main-content {
+  padding-top: 90px;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .scrolling-banner {
+    padding: 0.25rem 0;
+  }
+
+  .scrolling-text {
+    font-size: 1rem;
+  }
+
+  .main-content {
+    padding-top: 80px;
+  }
+}
