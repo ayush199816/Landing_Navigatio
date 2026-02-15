@@ -2604,6 +2604,22 @@ main {
   letter-spacing: 0.1rem;
 }
 
+.tel-button {
+  background-color: white;
+  color: var(--primary-color);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  margin: 0 0.25rem;
+  transition: background-color 0.3s ease;
+}
+
+.tel-button:hover {
+  background-color: #f0f0f0;
+}
+
 /* Scrolling Banner */
 .scrolling-banner {
   background-color: var(--primary-color);
@@ -2621,8 +2637,8 @@ main {
   display: inline-block;
   font-size: 1.2rem;
   font-weight: bold;
-  animation: scroll-left 180s linear infinite;
-  padding-left: 100%;
+  animation: scroll-left 80s linear infinite;
+  padding-left: 0;
 }
 
 @keyframes scroll-left {

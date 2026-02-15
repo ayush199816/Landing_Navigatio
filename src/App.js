@@ -343,7 +343,7 @@ const Navbar = ({ logo, links, whatsappNumber }) => {
 const ScrollingBanner = () => (
   <div className="scrolling-banner">
     <div className="scrolling-text">
-      Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbspCall or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;
+      Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Call or WhatsApp to book now @ 9628912345 / 9219755463 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </div>
   </div>
 );
@@ -531,7 +531,25 @@ const Home = () => {
       <section className="contact-number-section">
         <div className="container">
           <div className="contact-number-display">
-            <strong>Call or WhatsApp to book now @ 9628912345 / 9219755463</strong>
+            <strong>Call or WhatsApp to book now @ <a href="tel:9628912345" className="tel-button" onClick={() => {
+              if (window.gtag) {
+                window.gtag('event', 'call_click', {
+                  event_category: 'engagement',
+                  event_label: 'contact_number_9628912345'
+                });
+              }
+              // eslint-disable-next-line no-undef
+              gtag_report_conversion('tel:9628912345');
+            }}>9628912345</a> / <a href="tel:9219755463" className="tel-button" onClick={() => {
+              if (window.gtag) {
+                window.gtag('event', 'call_click', {
+                  event_category: 'engagement',
+                  event_label: 'contact_number_9219755463'
+                });
+              }
+              // eslint-disable-next-line no-undef
+              gtag_report_conversion('tel:9219755463');
+            }}>9219755463</a></strong>
           </div>
         </div>
       </section>
