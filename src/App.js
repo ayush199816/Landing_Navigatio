@@ -5,6 +5,9 @@ import { FiSearch, FiMapPin, FiStar, FiClock, FiMessageCircle, FiCheckCircle, Fi
 import { FaUmbrellaBeach, FaShip, FaCity, FaMountain, FaChevronLeft, FaChevronRight, FaEnvelope, FaPhone, FaMapMarkerAlt, FaQuoteLeft, FaWhatsapp } from 'react-icons/fa';
 import ContactPage from './pages/ContactPage';
 import TourPackages from './components/TourPackages';
+import Guidance from './components/Guidance';
+// eslint-disable-next-line no-unused-vars
+import ThailandGuidance from './components/ThailandGuidance';
 import './App.css';
 import './components/TourPackages.css';
 
@@ -936,7 +939,7 @@ const Home = () => {
             <div className="team-member">
               <div className="member-avatar">AN</div>
               <h3>Anshra</h3>
-              <p className="position">Sales Associate</p>
+              <p className="position">Relationship and Operations Associate</p>
             </div>
             <div className="team-member">
               <div className="member-avatar">AK</div>
@@ -944,9 +947,9 @@ const Home = () => {
               <p className="position">Operations Associate</p>
             </div>
             <div className="team-member">
-              <div className="member-avatar">AS</div>
-              <h3>Akshara</h3>
-              <p className="position">Operations Associate</p>
+              <div className="member-avatar">VS</div>
+              <h3>Vasundhra Sharma</h3>
+              <p className="position">Relationship and Operations Associate</p>
             </div>
           </div>
         </div>
@@ -1043,6 +1046,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/guidance" element={<Guidance />} />
+          <Route path="/guidance/thailand" element={<ThailandGuidance />} />
         </Routes>
       </main>
       <WhatsAppFab whatsappNumber={WHATSAPP_NUMBER} />
