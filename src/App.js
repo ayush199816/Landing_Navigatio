@@ -378,7 +378,7 @@ const Footer = () => (
     <div className="container">
       <div className="footer-content">
         <div className="footer-logo">
-          <h3>Navigatio Asia DMC</h3>
+          <h3>Navigatio Connect Pvt. Ltd.</h3>
           <p>Creating unforgettable travel experiences across Asia</p>
         </div>
         <div className="footer-links">
@@ -411,7 +411,7 @@ const Footer = () => (
         </div>
       </div>
       <div className="footer-bottom">
-        <p>&copy; {new Date().getFullYear()} Navigatio Asia DMC. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} Navigatio Connect Pvt. Ltd. All rights reserved.</p>
         <div className="social-links">
           <a href="https://www.instagram.com/navigatio.asia" aria-label="Instagram"><i className="fab fa-instagram"></i></a>
           <a href="https://in.linkedin.com/company/navigatioasiadmc" aria-label="LinkedIn"><i className="fab fa-linkedin"></i></a>
